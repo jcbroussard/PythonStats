@@ -2,6 +2,7 @@ import survey
 import first_solutions
 import Pmf
 import operator
+import matplotlib
 
 first_solutions.Summarize('.')
 
@@ -15,6 +16,13 @@ def Mode(HistObj):
 def AllModes(HistObj):
     HistObjDict = HistObj.GetDict()
     return sorted(HistObjDict.iteritems(),key=operator.itemgetter(1), reverse=True)
+
+def RemainingLifetime(HistObj, age):
+    """
+    Takes a Pmf of lifetimes and an age, returns Pfm representing
+    the distribution of remaining lifetimes.
+    """
+    pass
 
 def standardDev(data_dir):
     """
@@ -36,9 +44,13 @@ def standardDev(data_dir):
     print 'Difference in days', (mu1 - mu2) * 7.0
     print
 
+    # init firsts sigma-sqaure and list of firsts pregnancy length
     sigmasq1 = 0
+    firstLength = []
     for b in firsts.records:
         sigmasq1 =+ pow(mu1 - b.prglength,2)
+        firstLength.append(b.prglength)
+        print b.prglength
     sigmasq1 /= firsts.n
     stddev1 = pow(sigmasq1,0.5)
 
